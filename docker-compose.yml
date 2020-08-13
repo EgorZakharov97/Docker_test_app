@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+    server1:
+        container_name: server1
+        build: .
+        volumes:
+            - "./src:/app/src"
+        restart: always
+        networks:
+            - internal
+        ports:
+            - '8081:80'
+        command: nodemon app.js
+        environment:
+            - TEST_VAR="${TEST_VAR}"
+    server2:
+        container_name: server2
+        build: .
+        volumes:
+            - "./src:/app/src"
+        restart: always
+        networks:
+            - internal
+        command: nodemon app.js
+        environment:
+            - TEST_VAR=${TEST_VAR}
+
+networks:
+    internal:
+        external:
+            name: testing
